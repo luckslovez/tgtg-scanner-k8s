@@ -1,0 +1,12 @@
+namespace: tgtg-scanner
+
+resources:
+- ns.yaml
+- pv.yaml
+- pvc.yaml
+- deployment.yaml
+
+configMapGenerator:
+- name: tgtg-scanner-env
+  envs:
+  - .env

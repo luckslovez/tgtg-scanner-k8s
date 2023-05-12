@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tgtg-scanner
+  labels:
+    app: tgtg-scanner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tgtg-scanner
+  template:
+    metadata:
+      labels:
+        app: tgtg-scanner
+    spec:
+      containers:
+      - name: tgtg-scanner
+        image: derhenning/tgtg:latest
+        envFrom:
+        - configMapRef:
+            name: tgtg-scanner-env
+        volumeMounts:
+        - name: tokens
+          mountPath: /tokens
+      volumes:
+      - name: tokens
+        persistentVolumeClaim:
+          claimName: tgtg-scanner-pvc
